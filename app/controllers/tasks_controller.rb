@@ -14,9 +14,15 @@ class TasksController < ApplicationController
   end
 
   def edit
-
+    task = current_user.tasks.find_by(id: params[:id])
+    render_not_found_response('Task not found') unless task
+    if task.update(task_params)
+      render json: task
+    else
+      render_error_response(task.errors.full_messages.to_sentence)
+    end
   end
-  
+
   private
 
   def task_params
