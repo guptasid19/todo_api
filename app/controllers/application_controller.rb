@@ -24,19 +24,4 @@ class ApplicationController < ActionController::API
   def render_response(message, code)
     render json: { message: message }, status: code
   end
-
-  def pagination_dict(collection)
-    {
-      total_count: collection.count,
-      current_page: collection.current_page,
-      next_page: collection.next_page,
-      prev_page: collection.previous_page,
-      total_pages: collection.total_pages
-    }
-  end
-
-  def render_collection(collection, options = {})
-    render_args = { json: collection, meta: pagination_dict(collection).merge(options) }.merge(options)
-    render render_args
-  end
 end
