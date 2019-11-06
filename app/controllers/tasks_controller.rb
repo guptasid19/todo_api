@@ -1,11 +1,12 @@
 class TasksController < ApplicationController
 
   def index
-    render json: current_user.tasks
+    render json: current_user.tasks.order(:position)
   end
 
   def create
-    task = current_user.tasks.new(task_params)
+    next_position = current_user.tasks.order(:position).last.position + 1
+    task = current_user.tasks.new(task_params.merge(position: next_position))
     if task.save
       render json: task
     else
@@ -23,9 +24,22 @@ class TasksController < ApplicationController
     end
   end
 
+  def reorder
+    result = ReorderTasks.run(reorder_params.merge(user: current_user))
+    if result.errors.blank?
+      render_success_response('Task successfully reordered')
+    else
+      render_error_response(result.errors.full_messages.to_sentence)
+    end
+  end
+
   private
 
   def task_params
     params.permit(:description, :due_date, :title)
+  end
+
+  def reorder_params
+    params.permit(:id, :new_position)
   end
 end
