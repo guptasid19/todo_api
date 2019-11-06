@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple rails application that is intended to provide apis for a todo application.
 
-Things you may want to cover:
+For setting up the project, follow the below steps:
 
-* Ruby version
+1. git clone the project to local machine.
+2. Run `bundle` to install all dependencies.
+3. Run `rails s` to start the server.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
